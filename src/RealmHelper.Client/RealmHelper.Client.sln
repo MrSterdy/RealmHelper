@@ -12,8 +12,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmHelper.Realm.Bedrock.A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmHelper.Realm.Java.Abstractions", "..\RealmHelper.Realm\RealmHelper.Realm.Java\src\RealmHelper.Realm.Java.Abstractions\RealmHelper.Realm.Java.Abstractions.csproj", "{0FC18FD8-F1E5-4454-8147-3A04EDD4E806}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmHelper.Client.Testing", "tests\RealmHelper.Client.Testing\RealmHelper.Client.Testing.csproj", "{C64DF164-F400-401B-A428-A5F19E03FB6C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,9 +42,5 @@ Global
 		{0FC18FD8-F1E5-4454-8147-3A04EDD4E806}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FC18FD8-F1E5-4454-8147-3A04EDD4E806}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FC18FD8-F1E5-4454-8147-3A04EDD4E806}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C64DF164-F400-401B-A428-A5F19E03FB6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C64DF164-F400-401B-A428-A5F19E03FB6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C64DF164-F400-401B-A428-A5F19E03FB6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C64DF164-F400-401B-A428-A5F19E03FB6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
