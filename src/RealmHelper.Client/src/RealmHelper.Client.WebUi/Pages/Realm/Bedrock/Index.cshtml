@@ -1,0 +1,124 @@
+﻿@page "{realmId:long}"
+
+@using Humanizer
+
+@using RealmHelper.Client.Infrastructure.Utils
+@using RealmHelper.Client.WebUi.Utils
+
+@model Index
+
+@{
+    ViewData["Title"] = "Overview";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/realm/overview.css" asp-append-version="true" />
+}
+
+<div class="realm-overview">
+    <div class="box">
+        <div class="realm-header" style="--background: url(@Model.Club.Profile.BackgroundImageUrl.ToSafeUrl())">
+            <img src="@Model.Club.Profile.DisplayImageUrl.ToSafeUrl()" alt="" class="realm-icon">
+    
+            <div class="realm-info">
+                <span class="realm-name">@Model.Club.Profile.Name</span>
+                <span class="realm-motd">@Model.Club.Profile.Description</span>
+            </div>
+        </div>
+    
+        <ul class="realm-body">
+            <li class="realm-entry">
+                <span class="key">Created</span>
+                <span class="value">@Model.Club.CreationDate.Humanize().Transform(To.SentenceCase)</span>
+            </li>
+    
+            <li class="realm-entry">
+                <span class="key">State</span>
+                <span class="value">@Model.Realm.State.Transform(To.LowerCase, To.TitleCase)</span>
+            </li>
+    
+            <li class="realm-entry">
+                <span class="key">Status</span>
+                <span class="value">@(Model.Realm.Expired ? "Expired" : "Running")</span>
+            </li>
+    
+            @if (!Model.Realm.Expired && Model.Realm.IsOwner(User))
+            {
+                <li class="realm-entry">
+                    <span class="key">Expires in</span>
+                    <span class="value">@("day".ToQuantity(Model.Realm.DaysLeft))</span>
+                </li>
+            }
+    
+            <li class="realm-entry">
+                <span class="key">Owner</span>
+                <span class="value">@Model.Owner.Gamertag</span>
+            </li>
+    
+            <li class="realm-entry">
+                <span class="key">Members</span>
+                <span class="value">@Model.Club.MembersCount</span>
+            </li>
+    
+            <li class="realm-entry">
+                <span class="key">Capacity</span>
+                <span class="value">@Model.Realm.MaxPlayers</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="realm-feed">
+        @if (Model.Activities.Length == 0)
+        {
+            <span class="realm-activity-title">No recent activity</span>
+        
+            return;
+        }
+        
+        <span class="realm-activity-title">Recent activity</span>
+
+        <ul class="realm-activities">
+            @foreach (var activity in Model.Activities)
+            {
+                <li class="box realm-activity">
+                    <div class="activity-header">
+                        <img src="@ImageHelper.Minify(activity.Author.DisplayImageUrl)" alt="" class="author-icon">
+                        
+                        <div class="activity-content">
+                            <span class="author-name">@activity.Author.Gamertag</span>
+                            
+                            <span class="activity-description">@activity.ShortDescription @activity.CreationDate.Humanize()</span>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-body">
+                        @if (activity.Text.Length != 0)
+                        {
+                            <span class="activity-caption">@activity.Text</span>
+                        }
+
+                        @if (activity.ScreenshotUri is not null)
+                        {
+                            <img src="@activity.ScreenshotUri.ToSafeUrl()" alt="" class="activity-screenshot"/>
+                        }
+                    </div>
+                    
+                    <div class="activity-footer">
+                        <div class="activity-data">
+                            <span class="activity-value">@activity.ViewCount</span>
+                            
+                            <img src="~/img/activity/views.png" alt="" class="activity-icon"/>
+                        </div>
+                        
+                        <div class="activity-data">
+                            <span class="activity-value">@activity.LikeCount</span>
+                            
+                            <img src="~/img/activity/likes.png" alt="" class="activity-icon"/>
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

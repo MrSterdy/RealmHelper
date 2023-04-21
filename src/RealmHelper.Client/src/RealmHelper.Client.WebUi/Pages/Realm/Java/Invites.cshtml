@@ -1,0 +1,40 @@
+﻿@page "/realm/java/{realmId:long}/invites"
+
+@model Invites
+
+@{
+    ViewData["Title"] = "Invites";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/realm/invites.css" asp-append-version="true" />
+}
+
+<div class="realm-invites">
+    @if (Model.Players.Length == 0)
+    {
+        <h1 class="title empty">No invites</h1>
+
+        return;
+    }
+    
+    <div>
+        <h2 class="title">Invites</h2>
+        
+        <ul class="invites">
+            @foreach (var player in Model.Players)
+            {
+                <li class="box invite">
+                    <img class="info-icon" src="https://mc-heads.net/avatar/@player.Uuid" alt="" />
+
+                    <a href="/realm/java/@Model.Realm.Id/member/@player.Uuid" class="info-name">
+                        @player.Name
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+
+    @await Component.InvokeAsync("Pagination", Model.CurrentPage)
+</div>

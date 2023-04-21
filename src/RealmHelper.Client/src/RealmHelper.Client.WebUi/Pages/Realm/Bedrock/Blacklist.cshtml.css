@@ -1,0 +1,26 @@
+﻿.blacklist-players {
+    display: flex;
+    flex-direction: column;
+    
+    gap: 2vh;
+}
+
+.blacklist-player {
+    display: flex;
+    align-items: center;
+    
+    padding: var(--space);
+    gap: var(--space);
+}
+
+.profile-icon {
+    width: 7vh;
+    
+    border: 3px solid #FFFFFF;
+    border-radius: 50%;
+}
+
+::deep .profile-name {
+    font-family: "Nunito", sans-serif;
+    font-size: 3vh;
+}

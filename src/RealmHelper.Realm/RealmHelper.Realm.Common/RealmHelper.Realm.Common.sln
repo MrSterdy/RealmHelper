@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmHelper.Realm.Common.Application", "src\RealmHelper.Realm.Common.Application\RealmHelper.Realm.Common.Application.csproj", "{7B728242-5475-4EC2-ACE8-F12E1E0D54A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmHelper.Realm.Common.Infrastructure", "src\RealmHelper.Realm.Common.Infrastructure\RealmHelper.Realm.Common.Infrastructure.csproj", "{C02B6BF2-8663-445A-8E61-EE93C1BBC129}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmHelper.Realm.Common.WebApi", "src\RealmHelper.Realm.Common.WebApi\RealmHelper.Realm.Common.WebApi.csproj", "{0D672262-F68F-4FE6-96D3-C44A67287512}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmHelper.Realm.Common.Abstractions", "src\RealmHelper.Realm.Common.Abstractions\RealmHelper.Realm.Common.Abstractions.csproj", "{F3EA0BB3-ED04-492A-B237-BC577AA0AB3A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7B728242-5475-4EC2-ACE8-F12E1E0D54A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B728242-5475-4EC2-ACE8-F12E1E0D54A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B728242-5475-4EC2-ACE8-F12E1E0D54A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B728242-5475-4EC2-ACE8-F12E1E0D54A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C02B6BF2-8663-445A-8E61-EE93C1BBC129}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C02B6BF2-8663-445A-8E61-EE93C1BBC129}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C02B6BF2-8663-445A-8E61-EE93C1BBC129}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C02B6BF2-8663-445A-8E61-EE93C1BBC129}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D672262-F68F-4FE6-96D3-C44A67287512}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D672262-F68F-4FE6-96D3-C44A67287512}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D672262-F68F-4FE6-96D3-C44A67287512}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D672262-F68F-4FE6-96D3-C44A67287512}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3EA0BB3-ED04-492A-B237-BC577AA0AB3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3EA0BB3-ED04-492A-B237-BC577AA0AB3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3EA0BB3-ED04-492A-B237-BC577AA0AB3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3EA0BB3-ED04-492A-B237-BC577AA0AB3A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

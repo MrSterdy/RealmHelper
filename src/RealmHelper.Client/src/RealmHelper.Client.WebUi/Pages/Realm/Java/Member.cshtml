@@ -1,0 +1,125 @@
+﻿@page "/realm/java/{realmId:long}/member/{memberId}"
+
+@model Member
+
+@{
+    ViewData["Title"] = Model.Player.Name;
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/realm/member.css" asp-append-version="true" />
+}
+
+<div class="realm-member">
+    <div class="box">
+        @if (Model.IsRealmOwned && !Model.IsOwner)
+        {
+            if (Model.IsInvited)
+            {
+                <img data-tippy-content="Delete invite" class="img-button main-action" src="~/img/actions/uninvite.png" alt="" />
+            }
+            else if (!Model.IsInRealm)
+            {
+                <img data-tippy-content="Invite" class="img-button main-action" src="~/img/actions/invite.png" alt="" />
+            }
+            else
+            {
+                <img data-tippy-content="Kick" class="img-button main-action" src="~/img/actions/delete.png" alt="" />
+            }
+        }
+
+        <img class="member-icon" src="https://mc-heads.net/avatar/@Model.Player.Uuid" alt=""/>
+
+        <ul class="member-info">
+            <li>
+                <span class="info-name">Username</span>
+
+                <span class="info-value">@Model.Player.Name</span>
+            </li>
+            
+            <li>
+                <span class="info-name">Status</span>
+
+                @if (Model.IsInvited)
+                {
+                    <span class="info-value">Invited</span>
+                }
+                else if (Model.IsInRealm || Model.IsOwner)
+                {
+                    <span class="info-value">@(Model.IsOnline ? "Online" : "Offline")</span>
+                }
+                else
+                {
+                    <span class="info-value">Not in the Realm</span>
+                }
+            </li>
+            
+            @if (Model.IsInRealm && Model.IsRealmOwned && !Model.IsOwner)
+            {
+                <li>
+                    <span class="info-name">Permission</span>
+
+                    <select class="info-value" name="permission">
+                        <option value="deop"></option>
+                        <option value="op" @(Model.Player.Operator ? "selected" : "")></option>
+                    </select>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+@if (Model.IsRealmOwned && !Model.IsOwner)
+{
+    @section Scripts
+    {
+        <script>
+            tippy(".main-action", { arrow: false });
+        
+            document.querySelector(".main-action").addEventListener("click", async function() {
+                @if (Model.IsInvited)
+                {
+                    @:const url = "@Url.Action("Uninvite", "JavaRealm", new { realmId = Model.Realm.Id, player = Model.Player.Uuid })";
+                    @:const processToast = "Deleting the invite...";
+                    @:const successToast = "The invite has been deleted";
+                    @:const method = "delete";
+                }
+                else if (!Model.IsInRealm)
+                {
+                    @:const url = "@Url.Action("Invite", "JavaRealm", new { realmId = Model.Realm.Id, player = Model.Player.Uuid })";
+                    @:const processToast = "Inviting the player...";
+                    @:const successToast = "The player has been invited";
+                    @:const method = "post";
+                }
+                else
+                {
+                    @:const url = "@Url.Action("Uninvite", "JavaRealm", new { realmId = Model.Realm.Id, player = Model.Player.Uuid })";
+                    @:const processToast = "Kicking the player...";
+                    @:const successToast = "The player has been kicked";
+                    @:const method = "delete";
+                }
+                
+                await makeRequest(url, processToast, successToast, method, undefined, true, this);
+            });
+            
+            new TomSelect(document.querySelector("select[name=permission]"), {
+                onInitialize: function () {
+                    this.control_input.disabled = true;
+                },
+                render: {
+                    item: (data) => `<img class="img-button" alt=\"\" src=\"/img/permissions/${data.value.toLowerCase() === "op" ? "operator" : "member"}.png\" />`,
+                    option: (data) => `<img class="img-button" alt=\"\" src=\"/img/permissions/${data.value.toLowerCase() === "op" ? "operator" : "member"}.png\" />`
+                },
+                onChange: async function (permission) {
+                    await makeRequest(
+                        "@Url.Action("Op", "JavaRealm", new { realmId = Model.Realm.Id, player = Model.Player.Uuid })",
+                        "Saving the permission...",
+                        "The permission has been saved",
+                        permission === "op" ? "post" : "delete"
+                    );
+                }
+            });
+        </script>
+    }
+}

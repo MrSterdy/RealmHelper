@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\RealmHelper.Realm.Common\src\RealmHelper.Realm.Common.WebApi\RealmHelper.Realm.Common.WebApi.csproj" />
+        <ProjectReference Include="..\RealmHelper.Realm.Bedrock.Application\RealmHelper.Realm.Bedrock.Application.csproj" />
+        <ProjectReference Include="..\RealmHelper.Realm.Bedrock.Infrastructure\RealmHelper.Realm.Bedrock.Infrastructure.csproj" />
+    </ItemGroup>
+
+</Project>

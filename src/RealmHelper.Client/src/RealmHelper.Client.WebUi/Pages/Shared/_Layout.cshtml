@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"]</title>
+    
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon" />
+
+    @await RenderSectionAsync("Styles", false)
+    
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/@(System.Reflection.Assembly.GetExecutingAssembly().GetName().Name).styles.css" asp-append-version="true" />
+</head>
+<body>
+    @RenderBody()
+
+    @await RenderSectionAsync("Scripts", false)
+</body>
+</html>

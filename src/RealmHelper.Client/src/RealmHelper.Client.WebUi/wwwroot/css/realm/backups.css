@@ -1,0 +1,66 @@
+div:has(.title.empty) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    gap: 2vh;
+}
+
+div:has(.title.empty) .light-button {
+    margin-bottom: 0;
+}
+
+.light-button {
+    margin-bottom: 2vh;
+}
+
+#world-input {
+    display: none;
+}
+
+.backups {
+    display: flex;
+    flex-direction: column;
+
+    padding: var(--space);
+    gap: var(--space);
+    margin-top: 2vh;
+}
+
+.backup {
+    display: flex;
+    flex-direction: column;
+}
+
+.backup-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.world-name {
+    font-family: "Nunito", sans-serif;
+    font-size: 3vh;
+}
+
+.backup-manage {
+    display: flex;
+    align-self: center;
+    align-items: center;
+
+    gap: var(--space);
+}
+
+.metadata {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    font-family: "Inter Tight", sans-serif;
+    color: var(--secondary-color);
+}
+
+.metadata > ul {
+    display: flex;
+
+    gap: var(--space);
+}

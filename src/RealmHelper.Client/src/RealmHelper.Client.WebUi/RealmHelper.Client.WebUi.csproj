@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+    
+    <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+<!--        <OutputType>Exe</OutputType>-->
+<!--        <SelfContained>false</SelfContained>-->
+<!--        <PublishSingleFile>true</PublishSingleFile>-->
+        <AssemblyName>BedrockAshes</AssemblyName>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\RealmHelper.Client.Infrastructure\RealmHelper.Client.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Humanizer.Core" Version="2.14.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="obj\Debug\" />
+    </ItemGroup>
+
+</Project>

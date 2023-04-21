@@ -1,0 +1,86 @@
+.members-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2vh;
+}
+
+.member {
+    display: flex;
+    justify-content: space-between;
+
+    padding: var(--space);
+}
+
+.member-info {
+    display: flex;
+
+    gap: var(--space);
+}
+
+.member-icon {
+    width: 7vh;
+
+    border: 3px solid #FFFFFF;
+    border-radius: 10%;
+}
+
+.member-body {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+
+.member-name {
+    font-family: "Nunito", sans-serif;
+    font-size: 3vh;
+}
+
+.member-date {
+    font-size: 2vh;
+    font-family: "Inter Tight", sans-serif;
+    color: var(--secondary-color);
+}
+
+.permission {
+    height: 3vh;
+
+    align-self: center;
+}
+
+#search-bar {
+    display: flex;
+
+    gap: var(--space);
+}
+
+#search-bar > input {
+    all: unset;
+
+    flex-grow: 1;
+
+    background-color: rgba(0, 0, 0, 0.3);
+
+    padding: 5px;
+    border-radius: 5px;
+
+    font-size: 2vh;
+    font-family: "Nunito", sans-serif;
+}
+#search-bar > input::placeholder {
+    font-family: "Inter Tight", sans-serif;
+    font-size: 2vh;
+    color: var(--secondary-color);
+}
+
+#search-bar > img {
+    width: 3vh;
+    height: 3vh;
+
+    cursor: pointer;
+
+    padding: 5px;
+
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+}

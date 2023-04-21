@@ -1,0 +1,108 @@
+﻿@model BaseRealmModel
+
+@using RealmHelper.Client.Infrastructure.Utils
+@using RealmHelper.Realm.Bedrock.Abstractions.Models
+
+@{
+    Layout = "_Layout";
+
+    ViewData["Title"] = $"{ViewData["Title"]} | {Model.Realm.Name}";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.min.css" />
+    
+    @await RenderSectionAsync("Styles", false)
+}
+
+<main data-details>
+    <div class="box sidebar">
+        <div class="sidebar-info">
+            <div class="sidebar-logo">
+                <img class="logo-bg" src="~/img/sidebar/logo.png" alt=""/>
+
+                <span class="realm-title">@Model.Realm.Name</span>
+            </div>
+            
+            <img src="~/img/sidebar/menu.png" alt="" id="menu-button" />
+        </div>
+        
+        <ul class="sidebar-items">
+            <li class="sidebar-item">
+                <a href="/realm/@(Model.Realm is BedrockRealm ? "bedrock" : "java")/@Model.Realm.Id">Overview</a>
+                
+                <img src="~/img/sidebar/overview.png" alt="" class="sidebar-icon">
+    
+                <span>OVERVIEW</span>
+            </li>
+            <li class="sidebar-item">
+                <a href="/realm/@(Model.Realm is BedrockRealm ? "bedrock" : "java")/@Model.Realm.Id/members">Members</a>
+                
+                <img src="~/img/sidebar/members.png" alt="" class="sidebar-icon">
+    
+                <span>MEMBERS</span>
+            </li>
+
+            @if (Model.Realm.IsOwner(User))
+            {
+                <li class="sidebar-item">
+                    <a href="/realm/@(Model.Realm is BedrockRealm ? "bedrock" : "java")/@Model.Realm.Id/invites">Invites</a>
+                
+                    <img src="~/img/sidebar/invites.png" alt="" class="sidebar-icon">
+    
+                    <span>INVITES</span>
+                </li>
+                <li class="sidebar-item">
+                    <a href="/realm/@(Model.Realm is BedrockRealm ? "bedrock" : "java")/@Model.Realm.Id/backups">Backups</a>
+                
+                    <img src="~/img/sidebar/backups.png" alt="" class="sidebar-icon">
+    
+                    <span>BACKUPS</span>
+                </li>
+                if (Model.Realm is BedrockRealm)
+                {
+                    <li class="sidebar-item">
+                        <a href="/realm/bedrock/@Model.Realm.Id/blacklist">Blacklist</a>
+                
+                        <img src="~/img/sidebar/blacklist.png" alt="" class="sidebar-icon">
+    
+                        <span>BLACKLIST</span>
+                    </li>
+                }
+                <li class="sidebar-item">
+                    <a href="/realm/@(Model.Realm is BedrockRealm ? "bedrock" : "java")/@Model.Realm.Id/settings">Settings</a>
+                
+                    <img src="~/img/sidebar/settings.png" alt="" class="sidebar-icon">
+    
+                    <span>SETTINGS</span>
+                </li>
+            }
+        </ul>
+    </div>
+    
+    <div class="body">
+        @RenderBody()
+    </div>
+</main>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.base.min.js"></script>
+
+    <script src="https://unpkg.com/@@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/tippy.js@6.3.7/dist/tippy-bundle.umd.min.js"></script>
+
+    <script src="~/js/utils.js" asp-append-version="true"></script>
+
+    <script>
+        document.getElementById("menu-button").addEventListener("click", () => {
+            const items = document.querySelector(".sidebar-items")
+            const display = items.style.display;
+            
+            items.style.display = display === "flex" ? "none" : "flex";
+        })
+    </script>
+
+    @await RenderSectionAsync("Scripts", false)
+}

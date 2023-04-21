@@ -1,0 +1,189 @@
+.realm-header {
+    display: flex;
+
+    position: relative;
+    z-index: 0;
+
+    padding: 1vh;
+    gap: var(--space);
+}
+.realm-header::before {
+    content: "";
+
+    position: absolute;
+    z-index: -1;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    -webkit-mask-image: linear-gradient(to top, transparent 0%, #000000 100%);
+
+    background-image: var(--background);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    border-top-left-radius: var(--space);
+    border-top-right-radius: var(--space);
+}
+
+.realm-icon {
+    width: 14vh;
+    height: 14vh;
+
+    border-radius: 5%;
+    border: 5px solid #FFFFFF;
+
+    align-self: center;
+}
+
+.realm-info {
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 5px;
+    gap: var(--space);
+}
+
+.realm-info > span {
+    background-color: rgba(0, 0, 0, 0.2);
+
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.realm-name {
+    font-family: "Nunito", sans-serif;
+    font-size: 4vh;
+    font-weight: bold;
+}
+
+.realm-motd {
+    font-family: "Inter Tight", sans-serif;
+    font-size: 2vh;
+}
+
+.realm-body {
+    gap: 15px;
+    padding: 1vh;
+
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.realm-entry {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    min-width: 5vh;
+}
+
+.key {
+    font-size: 2.5vh;
+    font-family: "Nunito", sans-serif;
+    text-align: center;
+}
+
+.value {
+    font-family: "Inter Tight", sans-serif;
+    font-size: 1.8vh;
+    text-align: center;
+    color: var(--secondary-color);
+}
+
+.realm-activity-title {
+    font-family: "Nunito", sans-serif;
+    font-size: 4vh;
+    text-shadow: var(--text-shadow);
+}
+
+.realm-activities {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2vh;
+}
+
+.realm-activity {
+    display: flex;
+    flex-direction: column;
+
+    gap: var(--space);
+    padding: 1vh;
+}
+
+.activity-header {
+    display: flex;
+
+    gap: 5px;
+}
+
+.author-icon {
+    width: 6vh;
+
+    border: 3px solid #FFFFFF;
+    border-radius: 5px;
+}
+
+.activity-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.author-name {
+    font-family: "Nunito", sans-serif;
+    font-size: 2vh;
+}
+
+.activity-body {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+.activity-description {
+    color: var(--secondary-color);
+    font-family: "Inter Tight", sans-serif;
+    font-size: 1.7vh;
+}
+
+.activity-caption {
+    font-family: "Inter Tight", sans-serif;
+    font-size: 2vh;
+    color: #FFFFFF;
+}
+
+.activity-screenshot {
+    border-radius: var(--space);
+
+    width: 100%;
+}
+
+.activity-footer {
+    display: flex;
+    justify-content: right;
+
+    gap: 20px;
+}
+
+.activity-data {
+    display: flex;
+    align-items: center;
+
+    gap: var(--space);
+}
+
+.activity-value {
+    font-family: "Inter Tight", sans-serif;
+    font-size: 2vh;
+    color: #FFFFFF;
+}
+
+.activity-icon {
+    width: 3vh;
+}

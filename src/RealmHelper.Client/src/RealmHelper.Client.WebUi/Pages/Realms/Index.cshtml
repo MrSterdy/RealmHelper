@@ -1,0 +1,69 @@
+﻿@page
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+
+@using RealmHelper.Realm.Common.Abstractions.Types
+
+@model RealmHelper.Client.WebUi.Pages.Realms.Index;
+
+@{
+    Layout = "Shared/_Layout";
+    
+    ViewData["Title"] = "Realms";
+}
+
+<main data-details>
+    @if (Model.OwnedBedrockRealms.Count == 0 
+         && Model.GuestBedrockRealms.Count == 0 
+         && Model.OwnedJavaRealms.Count == 0 
+         && Model.GuestJavaRealms.Count == 0)
+    {
+        <h1 class="title empty">You don't have any Realms</h1>
+    
+        return;
+    }
+
+    <div class="all-realms">
+        @if (Model.OwnedBedrockRealms.Count != 0 || Model.GuestBedrockRealms.Count != 0)
+        {
+            <div class="realms-section">
+                <h1 class="title">Bedrock Realms</h1>
+
+                <ul class="realms">
+                    @foreach (var realm in Model.OwnedBedrockRealms.Concat(Model.GuestBedrockRealms))
+                    {
+                        <li class="box realm @(realm.Expired ? "expired" : "") @(realm.State == RealmState.Closed ? "closed" : "")">
+                            <span class="realm-name">
+                                <a href="/realm/bedrock/@realm.Id">@realm.Name</a>
+                            </span>
+
+                            <span class="realm-motd">@realm.Motd</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+        
+        @if (Model.OwnedJavaRealms.Count != 0 || Model.GuestJavaRealms.Count != 0)
+        {
+            <div class="realms-section">
+                <h1 class="title">Java Realms</h1>
+
+                <ul class="realms">
+                    @foreach (var realm in Model.OwnedJavaRealms.Concat(Model.GuestJavaRealms))
+                    {
+                        <li class="box realm @(realm.Expired ? "expired" : "") @(realm.State == RealmState.Closed ? "closed" : "")">
+                            <span class="realm-name">
+                                <a href="/realm/java/@realm.Id">@realm.Name</a>
+                            </span>
+
+                            <span class="realm-motd">@realm.Motd</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+    
+    <a asp-controller="Account" asp-action="SignOut" class="light-button">SIGN OUT</a>
+</main>

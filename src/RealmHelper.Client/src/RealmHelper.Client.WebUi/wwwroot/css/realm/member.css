@@ -1,0 +1,106 @@
+.realm-member > div {
+    width: 30vh;
+
+    display: flex;
+    flex-direction: column;
+
+    margin: 0 auto;
+
+    position: relative;
+}
+
+.member-icon {
+    border-top-left-radius: var(--space);
+    border-top-right-radius: var(--space);
+}
+
+.main-action {
+    position: absolute;
+    z-index: 1;
+
+    top: 5px;
+    right: 5px;
+
+    background-color: rgba(0, 0, 0, 0.3);
+}
+::deep .main-action:not(.off):hover {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.member-icon {
+    -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+}
+
+.member-info {
+    display: flex;
+    flex-direction: column;
+
+    padding: var(--space);
+    gap: var(--space);
+}
+
+.member-info > li {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-name {
+    font-family: "Nunito", sans-serif;
+    font-size: 3vh;
+}
+
+.info-value {
+    color: var(--secondary-color);
+    font-family: "Inter Tight", sans-serif;
+    font-size: 2vh;
+}
+
+.ts-control {
+    background: none !important;
+
+    cursor: pointer !important;
+
+    border: none !important;
+
+    padding: 0 !important;
+
+    width: fit-content !important;
+}
+
+.ts-wrapper.single .ts-control input {
+    margin: 0 !important;
+
+    min-width: 0 !important;
+    width: 0;
+}
+
+.ts-dropdown {
+    border: none;
+
+    box-shadow: none;
+
+    background: #334A7D;
+
+    border-radius: 5px;
+
+    width: auto;
+}
+
+.ts-dropdown .active {
+    background-color: inherit;
+}
+
+.ts-dropdown-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.ts-dropdown-content .img-button:first-child {
+    border-radius: 5px 5px 0 0;
+}
+.ts-dropdown-content .img-button:last-child {
+    border-radius: 0 0 5px 5px;
+}
+.ts-dropdown-content .img-button:not(:first-child, :last-child) {
+    border-radius: 0;
+}

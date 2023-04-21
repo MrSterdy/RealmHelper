@@ -1,0 +1,23 @@
+﻿.pagination {
+    display: flex;
+    align-items: center;
+
+    gap: var(--space);
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+
+    margin: auto auto 0;
+}
+
+.pagination > span {
+    font-size: 2vh;
+    font-family: "Nunito", sans-serif;
+}
+
+.pagination > ::deep img {
+    width: 2vh;
+    height: 2vh;
+
+    cursor: pointer;
+}

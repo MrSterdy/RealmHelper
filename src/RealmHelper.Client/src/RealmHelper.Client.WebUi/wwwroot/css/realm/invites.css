@@ -1,0 +1,38 @@
+.invites {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2vh;
+}
+
+.invite {
+    display: flex;
+    align-items: center;
+
+    padding: var(--space);
+    gap: var(--space);
+}
+
+.info-icon {
+    width: 7vh;
+
+    border: 3px solid #FFFFFF;
+    border-radius: 10%;
+}
+
+.info-name {
+    font-size: 3vh;
+    font-family: "Nunito", sans-serif;
+}
+
+.invite-icons {
+    display: flex;
+    align-items: center;
+
+    gap: var(--space);
+}
+
+.invite-icons > img {
+    width: 3vh;
+    height: 3vh;
+}

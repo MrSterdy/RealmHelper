@@ -1,0 +1,37 @@
+﻿@page "/realm/bedrock/{realmId:long}/blacklist"
+
+@using RealmHelper.Client.WebUi.Utils
+
+@model Blacklist
+
+@{
+    ViewData["Title"] = "Blacklist";
+}
+
+<div class="realm-blacklist">
+    @if (Model.Players.Length == 0)
+    {
+        <h1 class="title empty">No blocked players</h1>
+        
+        return;
+    }
+    
+    <div>
+        <h2 class="title">Blacklist</h2>
+
+        <ul class="blacklist-players">
+            @foreach (var player in Model.Players)
+            {
+                <li class="box blacklist-player" data-xuid="@player.Xuid">
+                    <img class="profile-icon" src="@player.DisplayImageUrl.Minify()" alt=""/>
+
+                    <a href="/realm/bedrock/@Model.Realm.Id/member/@player.Xuid" class="profile-name">
+                        @player.Gamertag
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+
+    @await Component.InvokeAsync("Pagination", Model.CurrentPage)
+</div>

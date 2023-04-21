@@ -1,0 +1,183 @@
+﻿main {
+    min-height: 100vh;
+}
+@media screen and (max-width: 900px) {
+    main {
+        flex-direction: column;
+    }
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    
+    overflow: unset;
+    
+    width: 17%;
+    max-width: 210px;
+    
+    border-radius: unset;
+}
+@media screen and (max-width: 900px) {
+    .sidebar {
+        width: 100%;
+        max-width: 100%;
+        
+        position: sticky;
+        z-index: 1;
+        
+        top: 0;
+
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        
+        border-radius: unset;
+    }
+}
+
+.sidebar-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    width: 100%;
+}
+@media screen and (max-width: 900px) {
+    .sidebar-info {
+        margin: var(--space);
+    }
+}
+
+.sidebar-logo {
+    display: flex;
+    flex-direction: column;
+    
+    overflow: hidden;
+}
+@media screen and (max-width: 900px) {
+    .sidebar-logo {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        
+        gap: 5px;
+    }
+}
+
+::deep #menu-button {
+    display: none;
+}
+@media screen and (max-width: 900px) {
+    ::deep #menu-button {
+        display: block;
+        
+        width: 4vh;
+        height: 4vh;
+    }
+}
+
+::deep .logo-bg {
+    position: relative;
+    z-index: 0;
+    
+    -webkit-mask: linear-gradient(to top, transparent 0%, #000000 50%);
+}
+@media screen and (max-width: 900px) {
+    ::deep .logo-bg {
+        display: none;
+    }
+}
+
+.realm-title {
+    font-family: "Nunito", sans-serif;
+    font-size: 2.5vh;
+    text-align: center;
+    color: #FFFFFF;
+
+    font-weight: bold;
+    
+    padding: 5px;
+}
+
+.sidebar-items {
+    position: sticky;
+    
+    top: 3vh;
+    
+    margin-top: var(--space);
+    margin-bottom: var(--space);
+}
+@media screen and (max-width: 900px) {
+    .sidebar-items {
+        display: none;
+        flex-direction: column;
+        flex-grow: 1;
+        
+        background-color: rgba(0, 0, 0, 0.1);
+        
+        margin: 0;
+    }
+}
+
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    
+    gap: var(--space);
+    padding: var(--space);
+    
+    font-family: "Inter Tight", sans-serif;
+    color: #FFFFFF;
+    font-size: 2vh;
+    
+    transition: var(--transition);
+    
+    position: relative;
+}
+.sidebar-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+@media screen and (max-width: 900px) {
+    .sidebar-item {
+        flex-grow: 1;
+        justify-content: center;
+    }
+}
+
+::deep .sidebar-icon {
+    width: 3vh;
+}
+
+.sidebar-item > ::deep a {
+    position: absolute;
+    
+    width: 100%;
+    height: 100%;
+    
+    top: 0;
+    left: 0;
+    
+    opacity: 0;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    
+    padding: 5vh;
+}
+@media screen and (max-width: 900px) {
+    .body {
+        padding: 3vh;
+    }
+}
+.body > ::deep * {
+    display: flex;
+    flex-direction: column;
+    
+    gap: 5vh;
+    
+    height: 100%;
+}

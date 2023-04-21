@@ -1,0 +1,143 @@
+form {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2vh;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2vh;
+}
+
+.options-list {
+    padding: var(--space);
+    gap: var(--space);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.option-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.option-name {
+    font-family: "Nunito", sans-serif;
+    font-size: 2vh;
+}
+
+.option-type {
+    font-family: "Inter Tight", sans-serif;
+    font-size: 1.5vh;
+    color: var(--secondary-color);
+}
+
+.option-header + div {
+    display: flex;
+
+    gap: 5px;
+}
+
+.img-button {
+    background-color: rgba(0, 0, 0, 0.3);
+
+    width: 2vh;
+    height: 2vh;
+}
+.img-button:not(.off):hover {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.option-value {
+    all: unset;
+
+    background-color: rgba(0, 0, 0, 0.3);
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    font-family: "Inter Tight", sans-serif;
+    font-size: 1.7vh;
+
+    padding: 5px;
+    border-radius: 5px;
+
+    transition: var(--transition);
+}
+.option-value:invalid {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.option-value > option {
+    background-color: #1D2E54;
+}
+
+.settings-global {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5vh;
+}
+
+button {
+    all: unset;
+
+    font-size: 3vh;
+    font-family: "Nunito", sans-serif;
+    text-align: center;
+
+    border-radius: var(--space);
+
+    cursor: pointer;
+
+    transition: var(--transition);
+
+    box-shadow: var(--box-shadow);
+}
+
+.save {
+    background-color: #1D2E54;
+}
+.save:hover {
+    background-color: #293D6C;
+}
+.save.off,
+form:has(.option-value:invalid) .save {
+    cursor: default;
+}
+.save.off,
+form:has(.option-value:invalid) .save,
+form:not(:has(.option-value:invalid)) .save:not(.off):hover {
+    background-color: #374B82 !important;
+}
+
+.danger-zone {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2vh;
+}
+
+.danger-action {
+    background-color: #BA2323;
+}
+.danger-action.off {
+    cursor: default;
+}
+.danger-action.off,
+.danger-action:not(.off):hover {
+    background-color: #D33C3C !important;
+}
+
+#open {
+    background-color: #239D24;
+}
+#open:hover {
+    background-color: #3EB93E;
+}

@@ -1,0 +1,364 @@
+﻿@page "/realm/bedrock/{realmId:long}/settings"
+
+@using Humanizer
+
+@using RealmHelper.Realm.Bedrock.Abstractions.Types
+@using RealmHelper.Realm.Common.Abstractions.Types
+
+@model Settings
+
+@{
+    ViewData["Title"] = "Settings";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/realm/settings.css" asp-append-version="true" />
+}
+
+<div class="realm-settings">
+    <form>
+        <div class="options" id="description">
+            <h1 class="title">Description</h1>
+            
+            <ul class="box options-list">
+                <li>
+                    <div class="option-header">
+                        <span class="option-name">Name</span>
+                        <span class="option-type">String</span>
+                    </div>
+                    
+                    <input name="name" maxlength="64" required class="option-value" type="text" value="@Model.Realm.Name" />
+                </li>
+                <li>
+                    <div class="option-header">
+                        <span class="option-name">Motd</span>
+                        <span class="option-type">String</span>
+                    </div>
+                    
+                    <input name="description" maxlength="499" class="option-value" type="text" value="@Model.Realm.Motd"/>
+                </li>
+            </ul>
+        </div>
+        <div class="options" id="slot">
+            <h1 class="title">Slot options</h1>
+            
+            <ul class="box options-list">
+                <li>
+                    <div class="option-header">
+                        <span class="option-name">Slot name</span>
+                        <span class="option-type">String</span>
+                    </div>
+
+                    <input name="slotName" required maxlength="30" class="option-value" type="text" value="@Model.ActiveSlot.Options.SlotName"/>
+                </li>
+                <li>
+                    <div class="option-header">
+                        <span class="option-name">Enable PvP</span>
+                        <span class="option-type">Boolean</span>
+                    </div>
+
+                    <select class="option-value" name="pvp">
+                        <option value="true">true</option>
+                        <option value="false" @(Model.ActiveSlot.Options.Pvp ? "" : "selected")>false</option>
+                    </select>
+                </li>
+                <li>
+                    <div class="option-header">
+                        <span class="option-name">Spawn animals</span>
+                        <span class="option-type">Boolean</span>
+                    </div>
+
+                    <select class="option-value" name="spawnAnimals">
+                        <option value="true">true</option>
+                        <option value="false" @(Model.ActiveSlot.Options.SpawnAnimals ? "" : "selected")>false</option>
+                    </select>
+                </li>
+                <li>
+                    <div class="option-header">
+                        <span class="option-name">Spawn monsters</span>
+                        <span class="option-type">Boolean</span>
+                    </div>
+
+                    <select class="option-value" name="spawnMonsters">
+                        <option value="true">true</option>
+                        <option value="false" @(Model.ActiveSlot.Options.SpawnMonsters ? "" : "selected")>false</option>
+                    </select>
+                </li>
+                <li>
+                    <div class="option-header">
+                        <span class="option-name">Spawn protection</span>
+                        <span class="option-type">Integer</span>
+                    </div>
+
+                    <input name="spawnProtection" min="0" max="65535" class="option-value" type="number" value="@Model.ActiveSlot.Options.SpawnProtection"/>
+                </li>
+                <li>
+                    <div class="option-header">
+                        <span class="option-name">Enable command blocks</span>
+                        <span class="option-type">Boolean</span>
+                    </div>
+
+                    <select class="option-value" name="commandBlocks">
+                        <option value="true">true</option>
+                        <option value="false" @(Model.ActiveSlot.Options.CommandBlocks ? "" : "selected")>false</option>
+                    </select>
+                </li>
+                <li>
+                    <div class="option-header">
+                        <span class="option-name">Force game mode</span>
+                        <span class="option-type">Boolean</span>
+                    </div>
+
+                    <select class="option-value" name="forceGameMode">
+                        <option value="true">true</option>
+                        <option value="false" @(Model.ActiveSlot.Options.ForceGameMode ? "" : "selected")>false</option>
+                    </select>
+                </li>
+                <li>
+                    <div class="option-header">
+                        <span class="option-name">Game mode</span>
+                        <span class="option-type">Integer</span>
+                    </div>
+
+                    <select class="option-value" name="gameMode">
+                        <option value="0">@GameMode.Survival.ToString()</option>
+                        <option value="1" @(Model.ActiveSlot.Options.GameMode == GameMode.Creative ? "selected" : "")>@GameMode.Creative.ToString()</option>
+                        <option value="2" @(Model.ActiveSlot.Options.GameMode == GameMode.Adventure ? "selected" : "")>@GameMode.Adventure.ToString()</option>
+                    </select>
+                </li>
+                <li>
+                    <div class="option-header">
+                        <span class="option-name">Difficulty</span>
+                        <span class="option-type">Integer</span>
+                    </div>
+
+                    <select class="option-value" name="difficulty">
+                        <option value="0">@Difficulty.Peaceful.ToString()</option>
+                        <option value="1" @(Model.ActiveSlot.Options.Difficulty == Difficulty.Easy ? "selected" : "")>@Difficulty.Easy.ToString()</option>
+                        <option value="2" @(Model.ActiveSlot.Options.Difficulty == Difficulty.Normal ? "selected" : "")>@Difficulty.Normal.ToString()</option>
+                        <option value="3" @(Model.ActiveSlot.Options.Difficulty == Difficulty.Hard ? "selected" : "")>@Difficulty.Hard.ToString()</option>
+                    </select>
+                </li>
+                <li>
+                    <div class="option-header">
+                        <span class="option-name">Enable cheats</span>
+                        <span class="option-type">Boolean</span>
+                    </div>
+
+                    <select class="option-value" name="cheatsAllowed">
+                        <option value="true">true</option>
+                        <option value="false" @(Model.ActiveSlot.Options.CheatsAllowed ? "" : "selected")>false</option>
+                    </select>
+                </li>
+            </ul>
+        </div>
+        @if (Model.ActiveSlot.Options.WorldSettings.Count != 0)
+        {
+            <div class="options" id="world">
+                <h1 class="title">World options</h1>
+                
+                <ul class="box options-list">
+                    @foreach (var setting in Model.ActiveSlot.Options.WorldSettings)
+                    {
+                        <li>
+                            <div class="option-header">
+                                <span class="option-name">@setting.Key</span>
+                                <span class="option-type">@(setting.Value.Value is bool ? "Boolean" : "Integer")</span>
+                            </div>
+
+                            @if (setting.Value.Value is bool)
+                            {
+                                <select class="option-value" name="@setting.Key">
+                                    <option value="true">true</option>
+                                    <option value="false" @((bool)setting.Value.Value ? "" : "selected")>false</option>
+                                </select>
+                            }
+                            else
+                            {
+                                <input name="@setting.Key" required min="0" max="65535" class="option-value" type="number" value="@((int)setting.Value.Value)"/>
+                            }
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+        
+        <button type="button" id="save" class="save">Save</button>
+    </form>
+    
+    <div>
+        <div class="options" id="additional">
+            <h1 class="title">Additional settings</h1>
+        
+            <ul class="box options-list">
+                <li>
+                    <div class="option-header">
+                        <span class="option-name">Invite code</span>
+                        <span class="option-type">String</span>
+                    </div>
+        
+                    <div>
+                        <input readonly value="@Model.InviteCode" class="option-value" name="inviteCode"/>
+        
+                        <img id="regenerate-code" class="img-button" src="~/img/actions/regenerate.png" alt=""/>
+                    </div>
+                </li>
+                <li>
+                    <div class="option-header">
+                        <span class="option-name">Active slot</span>
+                        <span class="option-type">Integer</span>
+                    </div>
+        
+                    <div>
+                        <select class="option-value" name="activeSlot">
+                            <option value="1">1</option>
+                            <option value="2" @(Model.Realm.ActiveSlot == 2 ? "selected" : "")>2</option>
+                            <option value="3" @(Model.Realm.ActiveSlot == 3 ? "selected" : "")>3</option>
+                        </select>
+        
+                        <img id="activate-slot" class="img-button" src="~/img/actions/save.png" alt=""/>
+                    </div>
+                </li>
+                <li>
+                    <div class="option-header">
+                        <span class="option-name">Default permission</span>
+                        <span class="option-type">String</span>
+                    </div>
+        
+                    <div>
+                        <select class="option-value" name="permission">
+                            <option value="@Permission.Visitor">@Permission.Visitor.Transform(To.LowerCase, To.TitleCase)</option>
+                            <option value="@Permission.Member" @(Model.Realm.DefaultPermission == Permission.Member ? "selected" : "")>@Permission.Member.Transform(To.LowerCase, To.TitleCase)</option>
+                            <option value="@Permission.Operator" @(Model.Realm.DefaultPermission == Permission.Operator ? "selected" : "")>@Permission.Operator.Transform(To.LowerCase, To.TitleCase)</option>
+                        </select>
+        
+                        <img id="change-permission" class="img-button" src="~/img/actions/save.png" alt=""/>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="danger-zone">
+        @if (Model.Realm.State == RealmState.Closed)
+        {
+            <button class="danger-action state" type="button" id="open">Open the Realm</button>
+        }
+        else if (Model.Realm.State == RealmState.Open)
+        {
+            <button class="danger-action state" type="button" id="close">Close the Realm</button>
+        }
+        
+        <button class="danger-action" type="button" id="reset">Reset the Realm</button>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        document.getElementById("regenerate-code").addEventListener("click", async function() {
+            await makeRequest(
+                "@Url.Action("GenerateInviteLink", "BedrockRealm", new { realmId = Model.Realm.Id })",
+                "Creating a new Realm code...",
+                "The new Realm code has been created",
+                "post",
+                undefined,
+                true,
+                this
+            )
+        });
+        
+        document.getElementById("activate-slot").addEventListener("click", async function() {
+            const slot = this.previousElementSibling.value;
+            
+            await makeRequest(
+                "@Url.Action("ActivateSlot", "BedrockRealm", new { realmId = Model.Realm.Id, slotId = -1 })".replace("-1", slot),
+                "Activating the slot...",
+                "The slot has been activated",
+                "put",
+                undefined,
+                true,
+                this
+            );
+        });
+        
+        document.getElementById("change-permission").addEventListener("click", async function() {
+            const permission = this.previousElementSibling.value;
+            
+            await makeRequest(
+                "@Url.Action("ChangeDefaultPermission", "BedrockRealm", new { realmId = Model.Realm.Id })",
+                "Changing the default permission...",
+                "The default permission has been changed",
+                "put",
+                permission,
+                false,
+                this
+            );
+        });
+        
+        document.querySelector(".danger-action.state").addEventListener("click", async function() {
+            await makeRequest(
+                "@Url.Action(Model.Realm.State == RealmState.Open ? "Close" : "Open", "BedrockRealm", new { realmId = Model.Realm.Id })",
+                "@(Model.Realm.State == RealmState.Open ? "Closing" : "Opening") the Realm...",
+                "The Realm has been @(Model.Realm.State == RealmState.Open ? "closed" : "opened")",
+                "post",
+                undefined,
+                true,
+                this
+            )
+        });
+        
+        document.getElementById("reset").addEventListener("click", async function() {
+            await makeRequest(
+                "@Url.Action("Reset", "BedrockRealm", new { realmId = Model.Realm.Id })",
+                "Resetting the Realm...",
+                "The Realm has been reset",
+                "post",
+                undefined,
+                true,
+                this
+            )
+        });
+    
+        document.getElementById("save").addEventListener("click", async function() {
+            if (!this.closest("form").checkValidity()) 
+                return;
+            
+            const url = "@Url.Action("UpdateSlot", "BedrockRealm", new { realmId = Model.Realm.Id, slotId = Model.Realm.ActiveSlot })";
+            
+            const description = parseSection(document.getElementById("description"), false);
+            const options = {
+                "spawnNPCs": @Json.Serialize(Model.ActiveSlot.Options.SpawnNpcs),
+                "worldTemplateId": @Json.Serialize(Model.ActiveSlot.Options.WorldTemplateId),
+                "worldTemplateImage": @Json.Serialize(Model.ActiveSlot.Options.WorldTemplateImage),
+                "adventureMap": @Json.Serialize(Model.ActiveSlot.Options.AdventureMap),
+                "enabledPacks": @Json.Serialize(Model.ActiveSlot.Options.EnabledPacks),
+                
+                ...parseSection(document.getElementById("slot"), false)
+            };
+            
+            const world = document.getElementById("world");
+            options["worldSettings"] = world == null ? {} : parseSection(world, true);
+            
+            await makeRequest(url, "Saving the slot...", "The slot has been saved", "patch", { description, options }, false, this);
+        });
+        
+        function parseSection(element, includeType) {
+            const result = {};
+            
+            element.querySelectorAll("[name]")
+                .forEach(input => {
+                    const value = input.value;
+                    const isNumber = !isNaN(value);
+                    
+                    result[input.name] = includeType ? {
+                        "type": isNumber ? 1 : 0,
+                        "value": isNumber ? parseInt(value) : (value === "true")
+                    } : (isNumber ? parseInt(value) : (input.type === "text" ? value : (value === "true")));
+                });
+            
+            return result;
+        }
+    </script>
+}
