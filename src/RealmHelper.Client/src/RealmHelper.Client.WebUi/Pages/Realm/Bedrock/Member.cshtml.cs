@@ -12,6 +12,9 @@ namespace RealmHelper.Client.WebUi.Pages.Realm.Bedrock;
 public class Member : BedrockRealmModel
 {
     private readonly IProfileService _profileService;
+    private readonly IClubService _clubService;
+
+    public Club Club { get; set; } = default!;
 
     [BindProperty(SupportsGet = true)] 
     public string MemberId { get; set; } = default!;
@@ -28,18 +31,17 @@ public class Member : BedrockRealmModel
     public bool Invited { get; set; }
 
     public Member(IProfileService profileService, IBedrockRealmService realmService, IClubService clubService)
-        : base(realmService, clubService) =>
-        _profileService = profileService;
+        : base(realmService) =>
+        (_profileService, _clubService) = (profileService, clubService);
 
     public override async Task<IActionResult> OnGet(long realmId, CancellationToken cancellationToken)
     {
         await base.OnGet(realmId, cancellationToken);
 
-        var profile = long.TryParse(MemberId, out _)
-            ? await _profileService.GetProfileByXuidAsync(MemberId, cancellationToken)
-            : await _profileService.GetProfileByGamertagAsync(MemberId, cancellationToken);
-
-        Profile = profile;
+        (Profile, Club) = await (long.TryParse(MemberId, out _)
+                ? _profileService.GetProfileByXuidAsync(MemberId, cancellationToken)
+                : _profileService.GetProfileByGamertagAsync(MemberId, cancellationToken),
+            _clubService.GetClubAsync(Realm.ClubId, cancellationToken));
 
         Owner = Profile.Xuid == Realm.OwnerUuid;
 

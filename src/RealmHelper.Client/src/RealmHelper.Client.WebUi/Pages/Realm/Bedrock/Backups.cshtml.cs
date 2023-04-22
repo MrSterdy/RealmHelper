@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-using RealmHelper.Client.Application.Services;
 using RealmHelper.Client.WebUi.Models;
 using RealmHelper.Client.WebUi.Utils;
 using RealmHelper.Realm.Bedrock.Abstractions.Services;
@@ -17,7 +16,7 @@ public class Backups : OwnedBedrockRealmModel
     
     public Page? CurrentPage { get; set; }
 
-    public Backups(IBedrockRealmService realmService, IClubService clubService) : base(realmService, clubService)
+    public Backups(IBedrockRealmService realmService) : base(realmService)
     {
     }
 

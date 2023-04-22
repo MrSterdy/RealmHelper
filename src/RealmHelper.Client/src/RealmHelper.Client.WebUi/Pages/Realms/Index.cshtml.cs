@@ -44,8 +44,9 @@ public class Index : PageModel
         {
             await Task.WhenAll(tasks);
         }
-        catch (HttpRequestException)
+        catch (Exception)
         {
+            // ignored
         }
 
         var bedrockRealms = tasks[0].IsCompletedSuccessfully

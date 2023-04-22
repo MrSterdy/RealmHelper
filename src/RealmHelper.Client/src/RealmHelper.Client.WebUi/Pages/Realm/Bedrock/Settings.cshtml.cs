@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-using RealmHelper.Client.Application.Services;
 using RealmHelper.Realm.Bedrock.Abstractions.Models;
 using RealmHelper.Realm.Bedrock.Abstractions.Services;
 using RealmHelper.Realm.Common.Abstractions.Models;
@@ -13,7 +12,7 @@ public class Settings : OwnedBedrockRealmModel
 
     public string InviteCode { get; set; } = default!;
     
-    public Settings(IBedrockRealmService realmService, IClubService clubService) : base(realmService, clubService)
+    public Settings(IBedrockRealmService realmService) : base(realmService)
     {
     }
 

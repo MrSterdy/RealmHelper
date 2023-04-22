@@ -12,6 +12,7 @@ namespace RealmHelper.Client.WebUi.Pages.Realm.Bedrock;
 public class Members : BedrockRealmModel
 {
     private readonly IPeopleService _peopleService;
+    private readonly IClubService _clubService;
 
     [FromQuery(Name = "Page")] 
     public int MembersPage { get; set; } = 1;
@@ -22,20 +23,22 @@ public class Members : BedrockRealmModel
     public Page CurrentPage { get; set; } = default!;
 
     public Members(IPeopleService peopleService, IBedrockRealmService realmService, IClubService clubService)
-        : base(realmService, clubService) =>
-        _peopleService = peopleService;
+        : base(realmService) =>
+        (_peopleService, _clubService) = (peopleService, clubService);
 
     public override async Task<IActionResult> OnGet(long realmId, CancellationToken cancellationToken)
     {
         await base.OnGet(realmId, cancellationToken);
 
-        var members = Club.Members.Length;
+        var club = await _clubService.GetClubAsync(Realm.ClubId, cancellationToken);
+
+        var members = club.Members.Length;
 
         var (start, end, pageSize) = PaginationHelper.GetIndexes(MembersPage, members);
 
         var xuids = new string[pageSize];
         for (var i = start; i < end; i++)
-            xuids[i - start] = Club.Members[i].Xuid;
+            xuids[i - start] = club.Members[i].Xuid;
 
         var profilesTask = _peopleService.GetProfilesAsync(xuids, cancellationToken);
 
@@ -48,7 +51,7 @@ public class Members : BedrockRealmModel
             OnlinePlayers = Array.Empty<(Profile, BedrockPlayer)>();
             OfflinePlayers = new (Profile, ClubMember)[pageSize];
             for (int i = start, j = 0; i < end; i++, j++)
-                OfflinePlayers[j] = (profiles[j], Club.Members[i]);
+                OfflinePlayers[j] = (profiles[j], club.Members[i]);
         }
         else
         {
@@ -67,7 +70,7 @@ public class Members : BedrockRealmModel
                 : new (Profile, ClubMember)[Math.Min(members, pageSize - onlineLength)];
             for (int i = start, j = 0; i < end; i++, j++)
             {
-                var presence = Club.Members[i];
+                var presence = club.Members[i];
                 var profile = profiles[j];
                 var player = j < onlineLength ? activity[j] : null;
         

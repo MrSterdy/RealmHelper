@@ -19,8 +19,7 @@ public class Blacklist : OwnedBedrockRealmModel
 
     public Page? CurrentPage { get; set; }
 
-    public Blacklist(IPeopleService peopleService, IBedrockRealmService realmService, IClubService clubService)
-        : base(realmService, clubService) =>
+    public Blacklist(IPeopleService peopleService, IBedrockRealmService realmService) : base(realmService) =>
         _peopleService = peopleService;
 
     public override async Task<IActionResult> OnGet(long realmId, CancellationToken cancellationToken)

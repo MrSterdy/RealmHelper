@@ -9,25 +9,27 @@ namespace RealmHelper.Client.WebUi.Pages.Realm.Bedrock;
 public class Index : BedrockRealmModel
 {
     private readonly IProfileService _profileService;
+    private readonly IClubService _clubService;
+
+    public Club Club { get; set; } = default!;
     
     public Profile Owner { get; set; } = default!;
 
     public ClubActivity[] Activities { get; set; } = default!;
 
     public Index(IProfileService profileService, IBedrockRealmService realmService, IClubService clubService) 
-        : base(realmService, clubService) =>
-        _profileService = profileService;
+        : base(realmService) =>
+        (_profileService, _clubService) = (profileService, clubService);
 
     public override async Task<IActionResult> OnGet(long realmId, CancellationToken cancellationToken)
     {
         var result = await base.OnGet(realmId, cancellationToken);
-
-#pragma warning disable CS8600
-        (Owner, Activities) = await (
+        
+        (Owner, Club, Activities) = await (
             _profileService.GetProfileByXuidAsync(Realm.OwnerUuid, cancellationToken),
-            ClubService.GetClubActivitiesAsync(Realm.ClubId, Constants.PageSize, cancellationToken)
+            _clubService.GetClubAsync(Realm.ClubId, cancellationToken),
+            _clubService.GetClubActivitiesAsync(Realm.ClubId, Constants.PageSize, cancellationToken)
         );
-#pragma warning restore CS8600
 
         return result;
     }

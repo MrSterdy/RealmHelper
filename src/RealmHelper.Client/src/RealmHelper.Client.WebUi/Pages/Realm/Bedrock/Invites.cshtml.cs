@@ -19,8 +19,8 @@ public class Invites : OwnedBedrockRealmModel
 
     public Page CurrentPage { get; set; } = default!;
 
-    public Invites(IPeopleService peopleService, IBedrockRealmService realmService, IClubService clubService)
-        : base(realmService, clubService) =>
+    public Invites(IPeopleService peopleService, IBedrockRealmService realmService)
+        : base(realmService) =>
         _peopleService = peopleService;
 
     public override async Task<IActionResult> OnGet(long realmId, CancellationToken cancellationToken)
