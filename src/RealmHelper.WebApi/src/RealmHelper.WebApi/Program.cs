@@ -6,6 +6,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.AddOcelot(builder.Environment);
 
+builder.Services.AddCors(opts => opts.AddDefaultPolicy(b => b
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials()
+    .SetIsOriginAllowed(_ => true)));
+
 builder.Services.AddOcelot();
 
 builder.Services.PostConfigure<FileConfiguration>(cfg =>
@@ -30,6 +36,8 @@ builder.Services.PostConfigure<FileConfiguration>(cfg =>
 });
 
 var app = builder.Build();
+
+app.UseCors();
 
 app.UseOcelot().Wait();
 
