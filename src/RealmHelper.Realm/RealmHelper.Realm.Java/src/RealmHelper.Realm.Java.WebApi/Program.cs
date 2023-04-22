@@ -5,8 +5,8 @@ using RealmHelper.Realm.Java.WebApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddApplicationServices();
-builder.Services.AddInfrastructureServices();
+builder.Services.AddJavaApplicationServices();
+builder.Services.AddJavaInfrastructureServices();
 builder.Services.AddJavaWebApiServices();
 
 var app = builder.Build();

@@ -14,7 +14,7 @@ namespace RealmHelper.Realm.Java.Infrastructure;
 
 public static class ConfigureServices
 {
-    public static void AddInfrastructureServices(this IServiceCollection services)
+    public static void AddJavaInfrastructureServices(this IServiceCollection services)
     {
         services.AddCommonInfrastructureServices();
 

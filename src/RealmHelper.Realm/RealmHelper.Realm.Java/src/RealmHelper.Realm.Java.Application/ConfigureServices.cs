@@ -7,7 +7,7 @@ namespace RealmHelper.Realm.Java.Application;
 
 public static class ConfigureServices
 {
-    public static void AddApplicationServices(this IServiceCollection services)
+    public static void AddJavaApplicationServices(this IServiceCollection services)
     {
         services.AddCommonApplicationServices();
 

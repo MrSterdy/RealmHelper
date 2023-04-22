@@ -39,9 +39,9 @@ public class JavaRealmRepository : IJavaRealmRepository
 
     public JavaRealmRepository(ClaimsPrincipal user)
     {
-        var sid = user.FindFirst(AuthClaims.Sid)!.Value;
-        var username = user.FindFirst(AuthClaims.User)!.Value;
-        var version = user.FindFirst(AuthClaims.Version)!.Value;
+        var sid = user.FindFirst(AuthClaims.Sid)?.Value;
+        var username = user.FindFirst(AuthClaims.User)?.Value;
+        var version = user.FindFirst(AuthClaims.Version)?.Value;
 
         _restClient = new RestClient(Endpoint, opts =>
         {

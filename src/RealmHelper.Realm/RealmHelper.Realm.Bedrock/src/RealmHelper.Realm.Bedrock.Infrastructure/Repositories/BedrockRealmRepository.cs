@@ -12,7 +12,6 @@ using RealmHelper.Realm.Bedrock.Application.Repositories;
 using RealmHelper.Realm.Bedrock.Application.Types;
 using RealmHelper.Realm.Bedrock.Infrastructure.Authentication;
 using RealmHelper.Realm.Bedrock.Infrastructure.Http;
-using RealmHelper.Realm.Common.Abstractions.Models;
 using RealmHelper.Realm.Common.Application.Models.Requests;
 using RealmHelper.Realm.Common.Application.Models.Responses;
 
