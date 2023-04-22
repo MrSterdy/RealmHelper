@@ -1,13 +1,13 @@
 ﻿namespace RealmHelper.Realm.Common.Application.Models.Responses;
 
-public class PlayerActivitiesResponse<TPlayer>
+public class PlayerActivitiesResponse<TPlayer, TActivityResponse> where TActivityResponse : PlayerActivityResponse<TPlayer>
 {
-    public PlayerActivityResponse<TPlayer>[] Servers { get; set; } = default!;
+    public virtual TActivityResponse[] Servers { get; set; } = default!;
 }
 
 public class PlayerActivityResponse<TPlayer>
 {
-    public long RealmId { get; set; }
+    public virtual long RealmId { get; set; }
 
-    public TPlayer[] Players { get; set; } = default!;
+    public virtual TPlayer[] Players { get; set; } = default!;
 }

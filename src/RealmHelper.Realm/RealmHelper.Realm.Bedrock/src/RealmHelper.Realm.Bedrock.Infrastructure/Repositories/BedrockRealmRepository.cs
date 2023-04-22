@@ -105,7 +105,7 @@ public sealed class BedrockRealmRepository : IBedrockRealmRepository, IDisposabl
         return _restClient.GetAsync<BackupsResponse>(request, cancellationToken)!;
     }
 
-    public async Task<ArchiveInfo> RequestDownloadInfo(long realmId, int slotId, string? backupId = null,
+    public async Task<ArchiveResponse> RequestDownloadInfo(long realmId, int slotId, string? backupId = null,
         CancellationToken cancellationToken = default)
     {
         var request = new RestRequest(backupId is null
@@ -118,29 +118,21 @@ public sealed class BedrockRealmRepository : IBedrockRealmRepository, IDisposabl
                 .Replace("{BACKUP}", backupId)
         );
 
-        var response = await _restClient.GetAsync<BedrockArchiveDownloadInfo>(request, cancellationToken);
+        var response = await _restClient.GetAsync<BedrockArchiveDownloadResponse>(request, cancellationToken);
 
-        return new ArchiveInfo
-        {
-            Url = response!.DownloadUrl,
-            Token = response.Token
-        };
+        return response!;
     }
 
-    public async Task<ArchiveInfo> RequestUploadInfo(long realmId, int slotId,
+    public async Task<ArchiveResponse> RequestUploadInfo(long realmId, int slotId,
         CancellationToken cancellationToken = default)
     {
         var request = new RestRequest(
             UploadPath.Replace("{WORLD}", realmId.ToString()).Replace("{SLOT}", slotId.ToString())
         );
 
-        var response = await _restClient.GetAsync<BedrockArchiveUploadInfo>(request, cancellationToken);
+        var response = await _restClient.GetAsync<BedrockArchiveUploadResponse>(request, cancellationToken);
 
-        return new ArchiveInfo
-        {
-            Url = response!.UploadUrl,
-            Token = response.Token
-        };
+        return response!;
     }
 
     public Task RestoreBackupAsync(long realmId, string backupId, CancellationToken cancellationToken = default)
@@ -195,22 +187,16 @@ public sealed class BedrockRealmRepository : IBedrockRealmRepository, IDisposabl
         return _restClient.PostAsync(restRequest, cancellationToken);
     }
 
-    public async Task<PlayerActivitiesResponse<BedrockPlayerResponse>> GetPlayerActivitiesAsync(
-        CancellationToken cancellationToken = default)
+    public async Task<PlayerActivitiesResponse<BedrockPlayerResponse, BedrockPlayerActivityResponse>>
+        GetPlayerActivitiesAsync(
+            CancellationToken cancellationToken = default)
     {
         var request = new RestRequest(LivePlayersPath);
-        var response = await _restClient.GetAsync<LivePlayerListResponse>(request, cancellationToken);
+        var response =
+            await _restClient.GetAsync<PlayerActivitiesResponse<BedrockPlayerResponse, BedrockPlayerActivityResponse>>(
+                request, cancellationToken);
 
-        return new PlayerActivitiesResponse<BedrockPlayerResponse>
-        {
-            Servers = response!.Servers.Select(server =>
-                new PlayerActivityResponse<BedrockPlayerResponse>
-                {
-                    RealmId = server.Id,
-                    Players = server.Players
-                }
-            ).ToArray()
-        };
+        return response!;
     }
 
     public Task<string[]> GetBlockedPlayersAsync(long realmId, CancellationToken cancellationToken = default)

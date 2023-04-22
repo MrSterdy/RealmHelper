@@ -1,6 +1,5 @@
 ﻿using System.Net;
 using System.Security.Claims;
-using System.Text.Json;
 
 using RestSharp;
 
@@ -92,15 +91,15 @@ public class JavaRealmRepository : IJavaRealmRepository
     public Task<BackupsResponse> GetBackupsAsync(long realmId, CancellationToken cancellationToken = default) =>
         _restClient.GetJsonAsync<BackupsResponse>(BackupsPath.Replace("{WORLD}", realmId.ToString()), cancellationToken)!;
 
-    public async Task<ArchiveInfo> RequestDownloadInfo(long realmId, int slotId, string? backupId,
+    public async Task<ArchiveResponse> RequestDownloadInfo(long realmId, int slotId, string? backupId,
         CancellationToken cancellationToken = default)
     {
-        var response = await _restClient.GetJsonAsync<ArchiveDownloadResponse>(
+        var response = await _restClient.GetJsonAsync<JavaArchiveDownloadResponse>(
             DownloadPath.Replace("{WORLD}", realmId.ToString()).Replace("{SLOT}", slotId.ToString()),
             cancellationToken
         );
 
-        return new ArchiveInfo { Url = response!.DownloadLink };
+        return response!;
     }
 
     public Task RestoreBackupAsync(long realmId, string backupId, CancellationToken cancellationToken = default)
@@ -111,16 +110,16 @@ public class JavaRealmRepository : IJavaRealmRepository
         return _restClient.PutAsync(request, cancellationToken);
     }
 
-    public async Task<ArchiveInfo> RequestUploadInfo(long realmId, int slotId,
+    public async Task<ArchiveResponse> RequestUploadInfo(long realmId, int slotId,
         CancellationToken cancellationToken = default)
     {
         var request = new RestRequest(
             UploadPath.Replace("{WORLD}", realmId.ToString()).Replace("{SLOT}", slotId.ToString()),
             Method.Put
         );
-        var response = await _restClient.PutAsync<ArchiveUploadResponse>(request, cancellationToken);
+        var response = await _restClient.PutAsync<JavaArchiveUploadResponse>(request, cancellationToken);
 
-        return new ArchiveInfo { Url = response!.UploadEndpoint, Token = response.Token };
+        return response!;
     }
 
     public Task InvitePlayerAsync(long realmId, string player, CancellationToken cancellationToken = default) =>
@@ -165,19 +164,12 @@ public class JavaRealmRepository : IJavaRealmRepository
             cancellationToken
         );
 
-    public async Task<PlayerActivitiesResponse<string>> GetPlayerActivitiesAsync(
+    public async Task<PlayerActivitiesResponse<string, JavaPlayerActivityResponse>> GetPlayerActivitiesAsync(
         CancellationToken cancellationToken = default)
     {
-        var response = await _restClient.GetJsonAsync<LivePlayerListResponse>(LivePlayerListPath, cancellationToken);
+        var response = await _restClient.GetJsonAsync<JavaPlayerActivitiesResponse>(LivePlayerListPath, cancellationToken);
 
-        return new PlayerActivitiesResponse<string>
-        {
-            Servers = response!.Lists.Select(server => new PlayerActivityResponse<string>
-            {
-                RealmId = server.ServerId,
-                Players = JsonSerializer.Deserialize<string[]>(server.PlayerList)!
-            }).ToArray()
-        };
+        return response!;
     }
 
     public Task OpAsync(long realmId, string player, CancellationToken cancellationToken = default)

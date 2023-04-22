@@ -4,7 +4,7 @@ using RealmHelper.Realm.Java.Application.Models.Responses;
 
 namespace RealmHelper.Realm.Java.Application.Repositories;
 
-public interface IJavaRealmRepository : IRealmRepository<JavaRealmResponse, string, SlotOptionsDto>
+public interface IJavaRealmRepository : IRealmRepository<JavaRealmResponse, string, JavaPlayerActivityResponse, SlotOptionsDto>
 {
     Task UpdateSlotAsync(long realmId, int slotId, SlotOptionsDto options, CancellationToken cancellationToken = default);
     

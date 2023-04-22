@@ -4,8 +4,9 @@ using RealmHelper.Realm.Common.Application.Models.Responses;
 
 namespace RealmHelper.Realm.Common.Application.Repositories;
 
-public interface IRealmRepository<TRealm, TActivityPlayer, TSlotOptions>
+public interface IRealmRepository<TRealm, TActivityPlayer, TActivityResponse, TSlotOptions>
     where TRealm : BaseRealmResponse
+    where TActivityResponse : PlayerActivityResponse<TActivityPlayer>
     where TSlotOptions : SlotOptionsDto
 {
     Task<RealmsResponse<TRealm>> GetRealmsAsync(CancellationToken cancellationToken = default);
@@ -20,10 +21,10 @@ public interface IRealmRepository<TRealm, TActivityPlayer, TSlotOptions>
 
     Task<BackupsResponse> GetBackupsAsync(long realmId, CancellationToken cancellationToken = default);
 
-    Task<ArchiveInfo> RequestDownloadInfo(long realmId, int slotId, string? backupId = default,
+    Task<ArchiveResponse> RequestDownloadInfo(long realmId, int slotId, string? backupId = default,
         CancellationToken cancellationToken = default);
     
-    Task<ArchiveInfo> RequestUploadInfo(long realmId, int slotId, CancellationToken cancellationToken = default);
+    Task<ArchiveResponse> RequestUploadInfo(long realmId, int slotId, CancellationToken cancellationToken = default);
 
     Task RestoreBackupAsync(long realmId, string backupId, CancellationToken cancellationToken = default);
 
@@ -39,6 +40,6 @@ public interface IRealmRepository<TRealm, TActivityPlayer, TSlotOptions>
     Task UpdateSlotAsync(long realmId, int slotId, SlotUpdateRequest<TSlotOptions> request,
         CancellationToken cancellationToken = default);
 
-    Task<PlayerActivitiesResponse<TActivityPlayer>> GetPlayerActivitiesAsync(
+    Task<PlayerActivitiesResponse<TActivityPlayer, TActivityResponse>> GetPlayerActivitiesAsync(
         CancellationToken cancellationToken = default);
 }

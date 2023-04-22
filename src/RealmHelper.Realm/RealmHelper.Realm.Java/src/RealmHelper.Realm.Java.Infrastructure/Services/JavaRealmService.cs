@@ -9,6 +9,7 @@ using Microsoft.Extensions.Caching.Memory;
 
 using RealmHelper.Realm.Common.Abstractions.Models;
 using RealmHelper.Realm.Common.Application.Models.Requests;
+using RealmHelper.Realm.Common.Application.Models.Responses;
 using RealmHelper.Realm.Java.Abstractions.Models;
 using RealmHelper.Realm.Java.Abstractions.Services;
 using RealmHelper.Realm.Java.Application.Repositories;
@@ -87,7 +88,7 @@ public class JavaRealmService : IJavaRealmService
     public async Task UploadBackupAsync(long realmId, int slotId, BackupFile backup,
         CancellationToken cancellationToken = default)
     {
-        if (!_cache.TryGetValue(realmId, out ArchiveInfo? archiveData))
+        if (!_cache.TryGetValue(realmId, out ArchiveResponse? archiveData))
         {
             archiveData = await _realmRepository.RequestUploadInfo(realmId, slotId, cancellationToken);
 

@@ -8,6 +8,7 @@ namespace RealmHelper.Realm.Bedrock.Application.Repositories;
 public interface IBedrockRealmRepository : IRealmRepository<
     BedrockRealmResponse, 
     BedrockPlayerResponse,
+    BedrockPlayerActivityResponse,
     BedrockSlotOptionsDto
 >
 {

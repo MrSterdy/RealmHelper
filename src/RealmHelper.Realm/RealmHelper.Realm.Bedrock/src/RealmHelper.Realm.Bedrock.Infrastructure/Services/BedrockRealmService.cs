@@ -13,6 +13,7 @@ using RealmHelper.Realm.Bedrock.Application.Models.Requests;
 using RealmHelper.Realm.Bedrock.Application.Repositories;
 using RealmHelper.Realm.Common.Abstractions.Models;
 using RealmHelper.Realm.Common.Application.Models.Requests;
+using RealmHelper.Realm.Common.Application.Models.Responses;
 
 namespace RealmHelper.Realm.Bedrock.Infrastructure.Services;
 
@@ -70,7 +71,7 @@ public class BedrockRealmService : IBedrockRealmService
     public async Task UploadBackupAsync(long realmId, int slotId, BackupFile backup,
         CancellationToken cancellationToken = default)
     {
-        if (!_cache.TryGetValue(realmId, out ArchiveInfo? archiveData))
+        if (!_cache.TryGetValue(realmId, out ArchiveResponse? archiveData))
         {
             archiveData = await _realmRepository.RequestUploadInfo(realmId, slotId, cancellationToken);
 
