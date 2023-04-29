@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmHelper.Realm.Bedrock.A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmHelper.Realm.Java.Abstractions", "..\RealmHelper.Realm\RealmHelper.Realm.Java\src\RealmHelper.Realm.Java.Abstractions\RealmHelper.Realm.Java.Abstractions.csproj", "{0FC18FD8-F1E5-4454-8147-3A04EDD4E806}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmHelper.Realm.Common.Abstractions", "..\RealmHelper.Realm\RealmHelper.Realm.Common\src\RealmHelper.Realm.Common.Abstractions\RealmHelper.Realm.Common.Abstractions.csproj", "{F80472BB-557A-4456-A683-3D0E46A331CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{0FC18FD8-F1E5-4454-8147-3A04EDD4E806}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FC18FD8-F1E5-4454-8147-3A04EDD4E806}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FC18FD8-F1E5-4454-8147-3A04EDD4E806}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F80472BB-557A-4456-A683-3D0E46A331CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F80472BB-557A-4456-A683-3D0E46A331CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F80472BB-557A-4456-A683-3D0E46A331CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F80472BB-557A-4456-A683-3D0E46A331CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
