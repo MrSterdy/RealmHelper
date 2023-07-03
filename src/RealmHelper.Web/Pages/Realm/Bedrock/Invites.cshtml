@@ -1,0 +1,44 @@
+﻿@page "/realm/bedrock/{realmId:long}/invites"
+
+@model Invites
+
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+
+@using RealmHelper.Web.Utils
+
+@{
+    ViewData["Title"] = "Invites";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/realm/invites.css" asp-append-version="true" />
+}
+
+<div class="realm-invites">
+    @if (Model.Profiles.Length == 0)
+    {
+        <h1 class="title empty">No invites</h1>
+
+        return;
+    }
+    
+    <div>
+        <h2 class="title">Invites</h2>
+        
+        <ul class="invites">
+            @foreach (var profile in Model.Profiles)
+            {
+                <li class="box invite" data-xuid="@profile.Xuid">
+                    <img class="info-icon" src="@profile.DisplayImageUrl.Minify()" alt="" />
+
+                    <a href="/realm/bedrock/@Model.Realm.Id/member/@profile.Xuid" class="info-name">
+                        @profile.Gamertag
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+
+    @await Component.InvokeAsync("Pagination", Model.CurrentPage)
+</div>

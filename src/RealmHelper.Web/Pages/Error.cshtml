@@ -1,0 +1,15 @@
+﻿@page
+
+@model Error
+
+@{
+    ViewData["Title"] = "Error";
+}
+
+<div class="error">
+    <img src="~/img/error.png" alt="" />
+    
+    <span>@Model.Response.StatusCode</span>
+</div>
+
+<h1 class="title empty"></h1>

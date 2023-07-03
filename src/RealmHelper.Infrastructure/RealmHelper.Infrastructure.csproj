@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\RealmHelper.Application\RealmHelper.Application.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="7.0.0" />
+      <PackageReference Include="Microsoft.Identity.Web" Version="2.12.4" />
+      <PackageReference Include="RestSharp" Version="110.2.0" />
+      <PackageReference Include="TaskTupleAwaiter" Version="2.0.3" />
+    </ItemGroup>
+
+</Project>

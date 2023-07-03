@@ -1,0 +1,134 @@
+﻿@page "/realm/bedrock/{realmId:long}/backups"
+
+@model Backups
+
+@using Humanizer
+
+@{
+    ViewData["Title"] = "Backups";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/realm/backups.css" asp-append-version="true" />
+}
+
+<div class="realm-backups">
+    @if (Model.BackupArray.Length == 0)
+    {
+        <div>
+            <h1 class="title empty">No backups</h1>
+            
+            <form>
+                <input type="file" name="world" id="world-input" accept=".mcworld" />
+                <button type="button" class="light-button">UPLOAD CUSTOM WORLD</button>
+            </form>
+        </div>
+    }
+    else
+    {
+        <div>
+            <h2 class="title">Backups</h2>
+            
+            <div>
+                <form>
+                    <input type="file" name="world" id="world-input" accept=".mcworld" />
+                    <button type="button" class="light-button">UPLOAD CUSTOM WORLD</button>
+                </form>
+
+                <ul class="box backups">
+                    @foreach (var backup in Model.BackupArray)
+                    {
+                        <li class="backup" data-backup-id="@backup.Id">
+                            <div class="backup-header">
+                                <span class="world-name">@backup.Metadata.Name</span>
+
+                                <div class="backup-manage">
+                                    <img class="img-button" data-download src="~/img/actions/download.png" alt="" />
+                                    <img class="img-button" data-upload src="~/img/actions/upload.png" alt=""/>
+                                </div>
+                            </div>
+
+                            <div class="metadata">
+                                <ul>
+                                    <li>
+                                        Version: @backup.Metadata.Version
+                                    </li>
+                                    <li>
+                                        Gamemode: @backup.Metadata.GameMode.ToString()
+                                    </li>
+                                    <li>
+                                        Difficulty: @backup.Metadata.Difficulty.ToString()
+                                    </li>
+                                </ul>
+
+                                <span>@DateTimeOffset.Parse(backup.Id).Humanize()</span>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+        @await Component.InvokeAsync("Pagination", Model.CurrentPage)
+    }
+</div>
+
+@section Scripts
+{
+    <script>
+        const worldInput = document.getElementById("world-input");
+        const button = worldInput.nextElementSibling;
+    
+        button.addEventListener("click", () => button.classList.contains("off") ? undefined : worldInput.click());
+        
+        worldInput.addEventListener("change", async () => {
+            await makeRequest(
+                "@Html.Raw(Url.Action("UploadBackup", "BedrockRealm", new { realmId = Model.Realm.Id, slotId = Model.Realm.ActiveSlot }))",
+                "Uploading the world...",
+                "The world has been uploaded",
+                "post",
+                new FormData(worldInput.form),
+                true,
+                button
+            );
+            
+            worldInput.value = null;
+        });
+    
+        for (const img of document.querySelectorAll("[data-download]"))
+            img.addEventListener("click", () =>
+                {
+                    const backupId = img.closest(".backup").getAttribute("data-backup-id");
+                    
+                    const a = document.createElement("a");
+                    a.href = "@Url.Action("DownloadBackup", "BedrockRealm", new { realmId = Model.Realm.Id, slotId = Model.Realm.ActiveSlot, backupId = "{0}" })".replace("{0}", backupId);
+                    
+                    document.body.appendChild(a);
+                    
+                    a.click();
+                    
+                    document.body.removeChild(a);
+                }
+            );
+        
+        const images = document.querySelectorAll("[data-upload]");
+        
+        for (const img of images)
+            img.addEventListener("click", async () => 
+                {
+                    const backupId = img.closest(".backup").getAttribute("data-backup-id");
+                    
+                    await makeRequest(
+                        "@Url.Action("UploadBackup", "BedrockRealm", new { realmId = Model.Realm.Id, slotId = Model.Realm.ActiveSlot, backupId = "-1" })".replace("-1", backupId),
+                        "Uploading the backup...",
+                        "The backup has been uploaded",
+                        "post",
+                        undefined,
+                        false,
+                        img,
+                        images
+                    );
+                });
+    </script>
+}
