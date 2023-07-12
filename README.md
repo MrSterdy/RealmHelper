@@ -12,6 +12,8 @@
 * Download and upload world backups *(Owner only)*
 * Edit world and slot settings *(Owner only)*
 
+![Screenshot of a non-owned Bedrock Realm](https://user-images.githubusercontent.com/83646375/252860406-a7d5026e-45cf-4006-860f-b1cda910df63.png)
+
 ## Run Locally
 
 If you want to run this project locally, then you have to create an [Azure AD application](https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app) (Choose `Personal Microsoft accounts only` in `Supported account types` section) and fill out the `ClientId` and `ClientSecret` fields in the `AzureAD` section.
